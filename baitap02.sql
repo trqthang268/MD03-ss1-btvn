@@ -311,7 +311,13 @@ select NV.hoten , case
 # niên <1 năm thưởng 200.000 - 1 năm <= thâm niên < 3 năm thưởng
 # 400.000 - 3 năm <= thâm niên < 5 năm thưởng 600.000 - 5 năm <= thâm
 # niên < 10 năm thưởng 800.000 - thâm niên >= 10 năm thưởng 1.000.000
-
+select NV.hoten, case when year(current_date())-year(NV.ngayvaolam) < 1 then 200000
+                    when (year(current_date())-year(NV.ngayvaolam) between 1 and 3) then 400000
+                    when (year(current_date())-year(NV.ngayvaolam) between 3 and 5) then 600000
+                    when (year(current_date())-year(NV.ngayvaolam) between 5 and 10)then 800000
+                    when (year(current_date())-year(NV.ngayvaolam)) > 10 then 1000000
+                    end as TienThuong
+from nhanvien NV;
 
 # 28.Cho biết những sản phẩm thuộc ngành hàng Hóa mỹ phẩm
 select SP.tensp from sanpham SP join loaisp LSP on SP.MaloaiSP = LSP.MaloaiSP
